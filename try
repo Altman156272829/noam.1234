@@ -1,1 +1,47 @@
-fgsdgesdg
+def negative_binary_calculator(a):
+    b = ''
+    c = ''
+    d = ''
+    first = True
+    count = 0
+    for i in a:
+        if i == "0":
+            b += "1"
+        else:
+            b+= "0"
+
+    for item in reversed(b):
+        if item =="0" and first :
+            c +="1"
+            first = False
+        elif first:
+            c += "0"
+        else:
+            c += item
+
+    for gg in reversed(c):
+        d += gg
+    print(d)
+
+
+from calculator import negative_binary_calculator
+decimal_num = int(input("Enter a number: "))
+space = int(input("How much space does this number take? "))
+dev = 2 ** (space-1)
+binary = ""  
+
+
+while dev >= 1:
+    if decimal_num >= dev:
+        binary += "1"
+        decimal_num -= dev
+    else:
+        binary += "0"
+    dev /= 2  
+
+
+while len(binary) < space:
+    binary = "0" + binary
+
+
+negative_binary_calculator(binary)
