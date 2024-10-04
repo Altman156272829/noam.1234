@@ -1,19 +1,18 @@
 from PIL import Image
-import io
 
-# טען את התמונה
-from PIL import Image
+def image_to_binary(image_path):
+    try:
+        with Image.open(image_path) as img:
+            binary_data = []
+            for pixel in img.getdata():
+                r, g, b = pixel[:3]  # וודא שאתה מתייחס רק לרכיבי ה-RGB של הפיקסל
+                binary_pixel = f'{r:08b} {g:08b} {b:08b}'
+                binary_data.append(binary_pixel)
+                print(binary_pixel)  # הדפסת נתוני הפיקסלים הבינאריים
+            return binary_data
+    except Exception as e:
+        print(f"Error: {e}")     
 
-with open(r'C:\Users\User\Downloads\אקר.jpeg', 'rb') as file:
-    img = Image.open(file)
-    img.show()
-# שמור את התמונה כייצוג בינארי
-with io.BytesIO() as output:
-    img.save(output, format="JPEG")
-    binary_data = output.getvalue()
-
-# הדפס את המידע הבינארי או שמור לקובץ
-print(binary_data)
-with open('output_image.bin', 'wb') as f:
-    f.write(binary_data)
+image_path = r"C:\Users\User\Downloads\אקר.jpeg"  # ודא שהמסלול נכון
+image_to_binary(image_path)
 
